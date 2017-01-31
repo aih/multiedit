@@ -1,0 +1,55 @@
+<html>
+<head>
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">
+    <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
+        <style>
+        body{
+          text-align:center;
+       } 
+    [ng\:cloak], [ng-cloak], .ng-cloak {
+      display: none !important;
+  }
+    .ace_editor { width: 400px; height: 200px; }
+    th{text-align: left;}
+      </style>
+</head>
+<body ng-app="myApp" ng-controller="mainController" ng-cloak>
+    <h4>Multiple Editors: One page</h4>
+    <table style="width:120px;">
+        <tbody>
+            <th>Ace Editor</th>
+            <th>Editor 2</th>
+            <th>Editor 3</th>
+            <tr>
+                <td><div ui-ace="{
+  showGutter: true,
+  showFoldWidgets: true,
+  highlightGutterLine: true,
+  theme:'crimson_editor',
+  mode: 'xml',
+  onLoad: aceLoaded,
+  onChange: aceChanged
+}" ng-model="aceData""><div></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+<script>
+var myApp = angular.module('myApp',['ui.ace']);
+
+myApp.controller('mainController', ['$scope', function($scope) {
+
+    $scope.aceLoaded = function(_editor) {
+        // Options
+        //_editor.setReadOnly(true);
+        $scope.aceData = aceData;
+    };
+    var aceData = '<?xml version="1.0" encoding="UTF-8"?>\n<div>\n     <span>test</span>\n     <span>test line 2</span>\n</div>';
+}]);
+</script>
+</body>
+</html>

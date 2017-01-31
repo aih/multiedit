@@ -1,0 +1,24 @@
+{
+  "name": "multiedit",
+  "authors": [
+    "aih <aih@tabulaw.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "keywords": [
+    "editor"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-ace": "bower"
+  }
+}
