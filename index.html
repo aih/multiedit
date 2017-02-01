@@ -2,9 +2,14 @@
 <head>
     <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
     <META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/lib/codemirror.css">
     <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="bower_components/tinymce/tinymce.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
+    <script type="text/javascript" src="bower_components/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-tinymce/dist/tinymce.min.js"></script>
         <style>
         body{
           text-align:center;
@@ -12,34 +17,43 @@
     [ng\:cloak], [ng-cloak], .ng-cloak {
       display: none !important;
   }
-    .ace_editor { width: 400px; height: 200px; }
+    .ace_editor { width: 400px; height:300px }
     th{text-align: left;}
       </style>
 </head>
 <body ng-app="myApp" ng-controller="mainController" ng-cloak>
     <h4>Multiple Editors: One page</h4>
-    <table style="width:120px;">
+    <table >
         <tbody>
             <th>Ace Editor</th>
-            <th>Editor 2</th>
-            <th>Editor 3</th>
+            <th>Codemirror Editor</th>
+            <th>Tiny MCE Editor</th>
             <tr>
-                <td><div ui-ace="{
-  showGutter: true,
-  showFoldWidgets: true,
-  highlightGutterLine: true,
-  theme:'crimson_editor',
-  mode: 'xml',
-  onLoad: aceLoaded,
-  onChange: aceChanged
-}" ng-model="aceData""><div></td>
-                <td></td>
-                <td></td>
+                <td>
+                    <div ui-ace="{
+                                showGutter: true,
+                                showFoldWidgets: true,
+                                highlightGutterLine: true,
+                                theme:'crimson_editor',
+                                mode: 'xml',
+                                onLoad: aceLoaded,
+                                onChange: aceChanged
+                            }" ng-model="aceData">
+                  <div>
+                </td>
+                <td>
+                    <div ui-codemirror ui-codemirror-opts="codemirrorOptions" ng-model="codemirrorData"></div>
+                </td>
+                <td>
+                    <form method="post">
+                        <textarea ui-tinymce="tinymceOptions" ng-model="tiny.tinymceData"></textarea>
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>
 <script>
-var myApp = angular.module('myApp',['ui.ace']);
+var myApp = angular.module('myApp',['ui.ace', 'ui.codemirror', 'ui.tinymce']);
 
 myApp.controller('mainController', ['$scope', function($scope) {
 
@@ -47,8 +61,39 @@ myApp.controller('mainController', ['$scope', function($scope) {
         // Options
         //_editor.setReadOnly(true);
         $scope.aceData = aceData;
-    };
+        };
+    codeMirrorData = '<?xml version="1.0" encoding="UTF-8"?>\n<div>\n     <span>Code Mirror initial data</span>\n     <span>test line 2 for Codemirror editor</span>\n</div>';
+    $scope.codemirrorLoaded = function(_editor) {
+        // Options
+        //_editor.setReadOnly(true);
+        $scope.codemirrorData = codemirrorData;
+        };
+    $scope.codemirrorOptions = {
+        onLoad: $scope.codemirrorLoaded,
+        lineWrapping : true,
+        lineNumbers: true,
+        mode: 'xml',
+        };
+    $scope.tinymceOptions = {
+        inline: false,
+        height: '200',
+        plugins : 'advlist autolink link image lists charmap print preview',
+        skin: 'lightgray',
+        theme : 'modern'
+
+};
+    $scope.tiny = {
+    tinymceData : '<?xml version="1.0" encoding="UTF-8"?><section><h1>Tiny MCE html</h1> <p>Click here, or in the header above to notice breadcrumbs</p><p>This is the beginning of paragraph 2. <span>This sentence is in a span, but not labeled in breadcrumbs</span></p><section>'
+
+    }; 
+    
+    $scope.tinymceLoaded = function(_editor) {
+        // Options
+        //_editor.setReadOnly(true);
+        $scope.tinymceData = tinymceData;
+        };
     var aceData = '<?xml version="1.0" encoding="UTF-8"?>\n<div>\n     <span>test</span>\n     <span>test line 2</span>\n</div>';
+    var codemirrorData = '<?xml version="1.0" encoding="UTF-8"?>\n<div>\n     <span>Code Mirror initial data</span>\n     <span>test line 2 for Codemirror editor</span>\n</div>';
 }]);
 </script>
 </body>
