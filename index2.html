@@ -1,0 +1,67 @@
+<html>
+<head>
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">
+    <link rel="stylesheet" type="text/css" href="css/billdtd.css">
+</head>
+<body ng-app="myApp" ng-controller="mainController" ng-cloak>
+    <h4>ContentEditable Demo</h4>
+    <table >
+        <tbody>
+            <th>ContentEditable</th>
+            <tr>
+                <td>
+                    <div id="buttonsContainer" style="margin-bottom:15px">
+                        <button data-tag="underline"><ins>Underline</ins></button>
+                        <button data-tag="strikeThrough"><del>Strike</del></button>
+                        <button data-tag="removeFormat">Remove format</button>
+                    </div>
+                    <div contenteditable="true">
+                        <?xml version="1.0" encoding="UTF-8"?>
+<section id="H84A7D7EC837742A2B23273EE00A22CE4" section-type="section-one"><enum>1.</enum><header>Short title</header><text display-inline="no-display-inline">This Act may be cited as the <quote><short-title>Financial Institution Customer Protection Act of 2015</short-title></quote>.</text></section> <section id="H922CC2FA5D0E4838B57FD22B97697FA6"><enum>2.</enum><header>Requirements for deposit account termination requests and orders</header> <subsection id="HF23632C004614732A76717A9B2712D94"><enum>(a)</enum><header>Termination requests or orders must be material</header> <paragraph id="HA9E7AEEB42F7458BA91AEF8CE15A0CDF"><enum>(1)</enum><header>In general</header><text>An appropriate Federal banking agency may not formally or informally request or order a depository institution to terminate a specific customer account or group of customer accounts or to otherwise restrict or discourage a depository institution from entering into or maintaining a banking relationship with a specific customer or group of customers unless—</text> 
+<subparagraph id="HE1723C67797D46358ECA200B13311A36"><enum>(A)</enum><text>the agency has a material reason for such request or order; and</text></subparagraph> <subparagraph id="H683ACC1E61B04827AA34AE8C934E4C5E"><enum>(B)</enum><text>such reason is not based solely on reputation risk.</text></subparagraph></paragraph> 
+<paragraph id="H5445BCF8B5F74C4996990D21905FF631"><enum>(2)</enum><header>Treatment of national security threats</header><text>If an appropriate Federal banking agency believes a specific customer or group of customers poses a threat to national security, including any belief that such customer or group of customers is involved in terrorist financing, such belief shall satisfy the materiality requirement under paragraph (1)(A).</text></paragraph> </subsection> <subsection id="HC2F8EEC44821415E97B6FA96DCF134B3"><enum>(b)</enum><header>Notice requirement</header> <paragraph id="H224909728636446CA98EFDFA71826A19"><enum>(1)</enum><header>In general</header><text display-inline="yes-display-inline">If an appropriate Federal banking agency formally or informally requests or orders a depository institution to terminate a specific customer account or a group of customer accounts, the agency shall—</text> 
+<subparagraph id="H14BB9406624946DCAFCAE3E19FF3C9E3"><enum>(A)</enum><text>provide such request or order to the institution in writing; and</text></subparagraph> <subparagraph id="HBB668601E8B2423B99CE84F77C36A338"><enum>(B)</enum><text>accompany such request or order with a written justification for why such termination is needed, including any specific laws or regulations the agency believes are being violated by the customer or group of customers, if any.</text></subparagraph></paragraph> 
+<paragraph id="H8AC1032166424BCF8DC0B39DB1945040"><enum>(2)</enum><header>Justification requirement</header><text display-inline="yes-display-inline">A justification described under paragraph (1)(B) may not be based solely on the reputation risk to the depository institution.</text></paragraph></subsection> <subsection id="H0C393CAF8EB0403CA357B2EA1474842F"><enum>(c)</enum><header>Customer notice</header> <paragraph id="HB2B46EADF0DB4F69954294AD7ADFF944"><enum>(1)</enum><header>Notice not required</header><text>Nothing in this section shall be construed as requiring a depository institution or an appropriate Federal banking agency to inform a customer or customers of the justification for the customer’s account termination described under subsection (b).</text></paragraph> 
+<paragraph id="HB8DDDF92C3A04EBCA27897D4EF03627C"><enum>(2)</enum><header>Notice prohibited in cases of national security</header><text display-inline="yes-display-inline">If an appropriate Federal banking agency requests or orders a depository institution to terminate a specific customer account or a group of customer accounts based on a belief that the customer or customers pose a threat to national security, neither the depository institution nor the appropriate Federal banking agency may inform the customer or customers of the justification for the customer’s account termination.</text></paragraph></subsection> <subsection id="HCD59AAB252374E0EB2C52A2533513E8B"><enum>(d)</enum><header>Reporting requirement</header><text display-inline="yes-display-inline">Each appropriate Federal banking agency shall issue an annual report to the Congress stating—</text> 
+<paragraph id="H942550FA95C44CE3915768A59EB7838C"><enum>(1)</enum><text>the aggregate number of specific customer accounts that the agency requested or ordered a depository institution to terminate during the previous year; and</text></paragraph> <paragraph id="H7CF7D166DA7C4A7E87814372E6E34E0B"><enum>(2)</enum><text display-inline="yes-display-inline">the legal authority on which the agency relied in making such requests and orders and the frequency on which the agency relied on each such authority.</text></paragraph></subsection></section> 
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<script>
+    //Create a simple editor 
+    //following the basic approach of
+    //https://newcircle.com/s/post/1096/using_the_html5_attribute_contenteditable_to_create_a_wysiwyg
+    //Get the format buttons
+    var buttons_container = document.getElementById('buttonsContainer');
+    var buttons = buttons_container.querySelectorAll('button[data-tag]');
+    //For each of them...
+    for(var i=0, l=buttons.length; i<l; i++)
+    {
+        //We bind the click event
+        buttons[i].addEventListener('click',function(e)
+        {
+            var tag = this.getAttribute('data-tag');
+            switch(tag)
+            {
+                case 'underline':
+                    document.execCommand('underline');
+                break;
+                case 'strikethrough':
+                    document.execCommand('strikeThrough');
+                break;
+                case 'removeFormat':
+                    document.execCommand('removeFormat');
+                break;
+                default:
+                    document.execCommand(tag, false, this.getAttribute('data-value'));
+            }
+            
+            e.preventDefault();
+        });
+    }
+</script>
+</body>
+</html>
